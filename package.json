@@ -1,0 +1,61 @@
+{
+  "name": "game-launcher",
+  "version": "1.0.0",
+  "description": "Game Launcher with AWS IAM Authentication",
+  "main": "./dist/main.js",
+  "private": true,
+  "scripts": {
+    "dev": "tsc && electron .",
+    "build": "tsc && electron-builder",
+    "start": "electron .",
+    "watch": "tsc -w"
+  },
+  "build": {
+    "appId": "com.gamelauncher.app",
+    "directories": {
+      "output": "release/"
+    },
+    "files": [
+      "dist/**/*",
+      "public/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    }
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.687.0",
+    "@aws-sdk/client-s3": "^3.688.0",
+    "@types/electron": "^1.6.10",
+    "@types/node": "^20.11.17",
+    "electron-store": "^8.1.0",
+    "i18next": "^23.8.2",
+    "i18next-electron-language-detector": "^0.0.10",
+    "lucide-react": "^0.344.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-i18next": "^14.0.5",
+    "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "typescript": "^5.3.3"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
