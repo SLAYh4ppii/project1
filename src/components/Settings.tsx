@@ -27,6 +27,7 @@ export const Settings: React.FC<SettingsProps> = ({
           <button
             onClick={() => onThemeChange(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+            title={t(`settings.themes.${theme === 'dark' ? 'light' : 'dark'}`)}
           >
             {theme === 'dark' ? (
               <Moon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
@@ -47,8 +48,8 @@ export const Settings: React.FC<SettingsProps> = ({
               onChange={(e) => onLanguageChange(e.target.value as 'en' | 'de')}
               className="form-select text-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             >
-              <option value="en">English</option>
-              <option value="de">Deutsch</option>
+              <option value="en">{t('settings.languages.en')}</option>
+              <option value="de">{t('settings.languages.de')}</option>
             </select>
           </div>
         </div>

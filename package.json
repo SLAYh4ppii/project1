@@ -2,46 +2,51 @@
   "name": "game-launcher",
   "version": "1.0.0",
   "description": "Game Launcher with AWS IAM Authentication",
-  "main": "./dist/main.js",
+  "main": "dist-electron/main.js",
   "private": true,
   "scripts": {
-    "dev": "tsc && electron .",
-    "build": "tsc && electron-builder",
-    "start": "electron .",
-    "watch": "tsc -w"
+    "dev": "vite",
+    "build": "tsc && vite build && tsc -p tsconfig.electron.json",
+    "electron": "wait-on tcp:3000 && electron .",
+    "start": "concurrently \"npm run dev\" \"npm run electron\"",
+    "package": "npm run build && electron-builder build --win --mac --linux",
+    "package:win": "npm run build && electron-builder build --win",
+    "package:mac": "npm run build && electron-builder build --mac",
+    "package:linux": "npm run build && electron-builder build --linux"
   },
   "build": {
+    "productName": "Game Launcher",
     "appId": "com.gamelauncher.app",
     "directories": {
       "output": "release/"
     },
     "files": [
       "dist/**/*",
-      "public/**/*"
+      "dist-electron/**/*"
     ],
     "win": {
-      "target": [
-        "nsis"
-      ]
+      "target": ["nsis"],
+      "icon": "public/icon.ico"
     },
     "mac": {
-      "target": [
-        "dmg"
-      ]
+      "target": ["dmg"],
+      "icon": "public/icon.icns"
     },
     "linux": {
-      "target": [
-        "AppImage"
-      ]
+      "target": ["AppImage"],
+      "icon": "public/icon.png"
     }
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.687.0",
     "@aws-sdk/client-s3": "^3.688.0",
+    "@aws-sdk/client-sts": "^3.687.0",
+    "@aws-sdk/credential-provider-ini": "^3.687.0",
     "@types/electron": "^1.6.10",
     "@types/node": "^20.11.17",
     "electron-store": "^8.1.0",
     "i18next": "^23.8.2",
+    "i18next-browser-languagedetector": "^7.2.0",
     "i18next-electron-language-detector": "^0.0.10",
     "lucide-react": "^0.344.0",
     "react": "^18.3.0",
@@ -52,10 +57,14 @@
   "devDependencies": {
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
     "electron": "^28.2.0",
     "electron-builder": "^24.9.1",
-    "typescript": "^5.3.3"
-  },
-  "author": "Your Name",
-  "license": "MIT"
+    "postcss": "^8.4.35",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.1",
+    "wait-on": "^7.2.0"
+  }
 }

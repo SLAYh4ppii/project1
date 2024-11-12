@@ -39,7 +39,7 @@ export const GameLibrary: React.FC<GameLibraryProps> = ({ games, onLaunchGame })
                 className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
               >
                 <Play className="w-4 h-4" />
-                <span>{game.isInstalled ? t('play') : t('install')}</span>
+                <span>{game.isInstalled ? t('games.play') : t('games.install')}</span>
               </button>
 
               <button className="p-2 hover:bg-gray-700 rounded-full transition-colors">

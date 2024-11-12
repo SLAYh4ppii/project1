@@ -24,7 +24,7 @@ function createWindow() {
     mainWindow.loadURL('http://localhost:3000');
     mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(join(__dirname, '../index.html'));
+    mainWindow.loadFile(join(__dirname, '../dist/index.html'));
   }
 }
 

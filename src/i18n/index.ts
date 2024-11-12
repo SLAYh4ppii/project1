@@ -1,26 +1,35 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 const resources = {
   en: {
     translation: {
       login: {
         title: 'Game Launcher Login',
-        accessKeyId: 'AWS Access Key ID',
-        secretKey: 'AWS Secret Access Key',
-        region: 'AWS Region',
+        profile: 'AWS Profile',
+        profilePlaceholder: 'Enter your AWS profile name',
         submit: 'Login'
       },
-      play: 'Play',
-      install: 'Install',
-      settings: {
-        theme: 'Theme',
-        language: 'Language'
+      header: {
+        title: 'Game Launcher',
+        login: 'Login'
       },
       games: {
-        library: 'Game Library',
-        installed: 'Installed',
-        available: 'Available'
+        play: 'Play',
+        install: 'Install'
+      },
+      settings: {
+        theme: 'Theme',
+        language: 'Language',
+        themes: {
+          light: 'Light',
+          dark: 'Dark'
+        },
+        languages: {
+          en: 'English',
+          de: 'Deutsch'
+        }
       }
     }
   },
@@ -28,31 +37,39 @@ const resources = {
     translation: {
       login: {
         title: 'Spiel-Launcher Anmeldung',
-        accessKeyId: 'AWS Zugangsschlüssel-ID',
-        secretKey: 'AWS Geheimer Schlüssel',
-        region: 'AWS Region',
+        profile: 'AWS-Profil',
+        profilePlaceholder: 'Geben Sie Ihren AWS-Profilnamen ein',
         submit: 'Anmelden'
       },
-      play: 'Spielen',
-      install: 'Installieren',
-      settings: {
-        theme: 'Design',
-        language: 'Sprache'
+      header: {
+        title: 'Spiel-Launcher',
+        login: 'Anmelden'
       },
       games: {
-        library: 'Spielebibliothek',
-        installed: 'Installiert',
-        available: 'Verfügbar'
+        play: 'Spielen',
+        install: 'Installieren'
+      },
+      settings: {
+        theme: 'Design',
+        language: 'Sprache',
+        themes: {
+          light: 'Hell',
+          dark: 'Dunkel'
+        },
+        languages: {
+          en: 'Englisch',
+          de: 'Deutsch'
+        }
       }
     }
   }
 };
 
 i18n
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en',
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false
