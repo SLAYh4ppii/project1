@@ -1,54 +1,85 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Play, Settings } from 'lucide-react';
+import { Play, Info, FileText } from 'lucide-react';
 
 interface Game {
   id: string;
   title: string;
   coverImage: string;
   isInstalled: boolean;
+  description: string;
+  version: string;
 }
 
 interface GameLibraryProps {
   games: Game[];
   onLaunchGame: (gameId: string) => void;
+  onViewChange: (view: 'library' | 'patchNotes' | 'gameDetails') => void;
 }
 
-export const GameLibrary: React.FC<GameLibraryProps> = ({ games, onLaunchGame }) => {
+export const GameLibrary: React.FC<GameLibraryProps> = ({ games, onLaunchGame, onViewChange }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-      {games.map((game) => (
-        <div
-          key={game.id}
-          className="relative group bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105"
-        >
-          <img
-            src={game.coverImage}
-            alt={game.title}
-            className="w-full h-48 object-cover"
-          />
-          
-          <div className="p-4">
-            <h3 className="text-xl font-bold text-white mb-2">{game.title}</h3>
-            
-            <div className="flex justify-between items-center">
-              <button
-                onClick={() => onLaunchGame(game.id)}
-                className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
-              >
-                <Play className="w-4 h-4" />
-                <span>{game.isInstalled ? t('games.play') : t('games.install')}</span>
-              </button>
-
-              <button className="p-2 hover:bg-gray-700 rounded-full transition-colors">
-                <Settings className="w-5 h-5 text-gray-400" />
-              </button>
-            </div>
-          </div>
+    <div className="container mx-auto px-6 py-8">
+      <div className="grid grid-cols-3 gap-8">
+        {/* Left Column - Patch Notes Button */}
+        <div className="col-span-1">
+          <button
+            onClick={() => onViewChange('patchNotes')}
+            className="w-full p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <FileText className="w-12 h-12 text-blue-500 mb-4 mx-auto" />
+            <h3 className="text-xl font-bold text-center text-gray-900 dark:text-white">
+              Patch Notes
+            </h3>
+          </button>
         </div>
-      ))}
+
+        {/* Middle Column - Game Card */}
+        <div className="col-span-1">
+          {games.map((game) => (
+            <div
+              key={game.id}
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <img
+                src={game.coverImage}
+                alt={game.title}
+                className="w-full h-48 object-cover rounded-t-xl"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {game.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                  Version {game.version}
+                </p>
+                <button
+                  onClick={() => onLaunchGame(game.id)}
+                  className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg transition-all duration-200"
+                >
+                  <Play className="w-5 h-5" />
+                  <span>{game.isInstalled ? t('games.play') : t('games.install')}</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Right Column - Game Details Button */}
+        <div className="col-span-1">
+          <button
+            onClick={() => onViewChange('gameDetails')}
+            className="w-full p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <Info className="w-12 h-12 text-purple-500 mb-4 mx-auto" />
+            <h3 className="text-xl font-bold text-center text-gray-900 dark:text-white">
+              Game Details
+            </h3>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
